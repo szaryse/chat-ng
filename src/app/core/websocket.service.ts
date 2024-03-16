@@ -28,7 +28,7 @@ export class WebsocketService {
         const receivedMessages = msg as BotMessage[];
 
         this.setMessage(receivedMessages);
-        console.log('message received: ' + JSON.stringify(msg));
+        // console.log('message received: ' + JSON.stringify(msg));
       },
       error: (err) => {
         if (err?.target?.readyState === 3) {
