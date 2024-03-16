@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Consolas, sans-serif;
+  }
+
+  html {
+    font-size: 20px;
+  }
+
+  body {
+    background-color: rgb(12,12,12);
+    color: rgb(242,242,242);
+  }

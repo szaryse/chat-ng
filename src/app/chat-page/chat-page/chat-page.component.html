@@ -1,0 +1,13 @@
+<ul *ngFor="let message of messages">
+    <li *ngIf="message.text">
+        <span>{{message.time + ' '}}</span>
+        <span>{{message.messageType + ' '}}</span>
+        <span>{{message.text}}</span>
+    </li>
+    <li *ngIf="message.text === ''">
+        <span>{{message.time + ' '}}</span>
+        <span>{{message.message?.tags?.displayUsername + ' '}}</span>
+        <span>{{message.messageType + ' '}}</span>
+        <span>{{message.message?.rawParameters}}</span>
+    </li>
+</ul>
