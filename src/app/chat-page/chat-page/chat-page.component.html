@@ -1,13 +1,12 @@
-<ul *ngFor="let message of messages">
-    <li *ngIf="message.text">
-        <span>{{message.time + ' '}}</span>
-        <span>{{message.messageType + ' '}}</span>
-        <span>{{message.text}}</span>
-    </li>
-    <li *ngIf="message.text === ''">
-        <span>{{message.time + ' '}}</span>
-        <span>{{message.message?.tags?.displayUsername + ' '}}</span>
-        <span>{{message.messageType + ' '}}</span>
-        <span>{{message.message?.rawParameters}}</span>
-    </li>
-</ul>
+<div class="wrapper">
+    <ul #autoScroll class="chat" (scroll)="onScrollEvent($event)">
+        <li *ngFor="let message of messages">
+            <span>{{message.time + ' '}}</span>
+            <span *ngIf="message.text === ''">{{message.message?.tags?.displayUsername + ' '}}</span>
+            <span *ngIf="message.text">{{message.messageType + ' '}}</span>
+            <span *ngIf="message.text">{{message.text}}</span>
+            <span *ngIf="message.text === ''">{{message.message?.rawParameters}}</span>
+        </li>
+    </ul>
+    <button class="button" type="button" (click)="scrollToBottomClick()">Scroll to bottom</button>
+</div>

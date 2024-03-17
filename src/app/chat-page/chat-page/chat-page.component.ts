@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { WebsocketService } from '../../core/websocket.service';
 import { BotMessage } from '../../core/types/messages';
 import { CommonModule } from '@angular/common';
@@ -13,8 +20,12 @@ import { catchError } from 'rxjs';
   templateUrl: './chat-page.component.html',
   styleUrl: './chat-page.component.scss',
 })
-export class ChatPageComponent implements OnInit {
+export class ChatPageComponent implements OnInit, AfterViewChecked {
+  @ViewChild('autoScroll') private autoScrollContainer: ElementRef | undefined;
+
   messages: BotMessage[] = [];
+  autoScroll = true;
+  currentPosition = 0;
 
   constructor(
     private websocketService: WebsocketService,
@@ -35,6 +46,36 @@ export class ChatPageComponent implements OnInit {
         this.messages.push(message);
       }
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.autoScroll) {
+      this.autoScrollToBottom();
+    }
+  }
+
+  autoScrollToBottom(): void {
+    if (this.autoScroll && this.autoScrollContainer) {
+      this.autoScrollContainer.nativeElement.scrollTop =
+        this.autoScrollContainer.nativeElement.scrollHeight;
+    }
+  }
+
+  onScrollEvent($event: Event) {
+    const { scrollHeight } = $event.target as HTMLUListElement;
+
+    if (scrollHeight <= this.currentPosition) {
+      this.autoScroll = false;
+    }
+
+    this.currentPosition = scrollHeight;
+  }
+
+  scrollToBottomClick(): void {
+    if (!this.autoScroll) {
+      this.autoScroll = true;
+      this.currentPosition = 0;
+    }
   }
 
   private setMessages(data: BotMessage | BotMessage[]) {

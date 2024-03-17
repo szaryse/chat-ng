@@ -1,0 +1,18 @@
+.wrapper {
+    height: 100vh;
+    max-height: 100vh;
+    position: relative;
+}
+
+.chat {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+}
+
+.button {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    padding: 8px 16px;
+}
